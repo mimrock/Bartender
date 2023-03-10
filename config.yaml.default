@@ -21,8 +21,7 @@ OpenAI:
   HistorySize: 6
 
   # If enabled, the bot will send all input to the moderations endpoint first. If it gets flagged
-  # the content will not be sent to the completions endpoint and will not risk account suspension. It is especially important
-  # with davinci models that do not have built-in content filter.
+  # the content will not be sent to the completions endpoint and will not risk account suspension.
   InputModeration: true
 
   # Output is sent to the moderations endpoint. If it gets flagged, the bot will indicate it in
