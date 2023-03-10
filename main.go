@@ -1,10 +1,3 @@
-//usr/bin/go run $0 $@ ; exit
-// That's a special She-bang for go
-
-// This is a demo rocketbot in golang
-// Its purpose is to showcase some features
-
-// Specify we are the main package (the one that contains the main function)
 package main
 
 import (
