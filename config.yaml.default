@@ -1,7 +1,7 @@
 LogLevel: debug # trace, debug, info, warning, error. Trace level, as expected, is pretty noisy.
 RocketChat:
   UserID: bot-userid
-  User: bot-username #
+  User: bot-username
   Password: bot-password
   HostName: localhost # The rocketchat server hostname
   Port: 3000
@@ -20,9 +20,10 @@ OpenAI:
   # risk of 400 - context_length_exceeded errors.
   HistorySize: 6
 
-  InputModeration: true # If enabled, the bot will send all input to the moderations endpoint first. If it gets flagged
+  # If enabled, the bot will send all input to the moderations endpoint first. If it gets flagged
   # the content will not be sent to the completions endpoint and will not risk account suspension. It is especially important
   # with davinci models that do not have built-in content filter.
+  InputModeration: true
 
   # Output is sent to the moderations endpoint. If it gets flagged, the bot will indicate it in
   # the response with a red flag, so the moderators of the server can spot more subtle malicious usage.
