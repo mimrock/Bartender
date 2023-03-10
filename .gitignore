@@ -1,0 +1,4 @@
+*.cfg
+*.yml
+*.yaml
+.idea*

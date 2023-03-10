@@ -1,0 +1,34 @@
+LogLevel: debug # trace, debug, info, warning, error. Trace level, as expected, is pretty noisy.
+RocketChat:
+  UserID: bot-userid
+  User: bot-username #
+  Password: bot-password
+  HostName: localhost # The rocketchat server hostname
+  Port: 3000
+  SSL: true # If the rocketchat server has SSL on the above hostname.
+OpenAI:
+  HostName: api.openai.com # OpenAI hostname
+  ApiToken: verysecret-apitoken
+
+  CompletionEndpoint: v1/chat/completions # Chat completions endpoint
+  ModerationEndpoint: v1/moderations # Moderations endpoint
+
+  Model: gpt-3.5-turbo # See https://platform.openai.com/docs/api-reference/chat/create#chat/create-model.
+
+  # The number of older messages to send to OpenAI. Both messages with "user" and "assistant" role are counted,
+  # but not the preprompt, which is sent with the "system" role. Setting it too big can increase bills and increase the
+  # risk of 400 - context_length_exceeded errors.
+  HistorySize: 6
+
+  InputModeration: true # If enabled, the bot will send all input to the moderations endpoint first. If it gets flagged
+  # the content will not be sent to the completions endpoint and will not risk account suspension. It is especially important
+  # with davinci models that do not have built-in content filter.
+
+  # Output is sent to the moderations endpoint. If it gets flagged, the bot will indicate it in
+  # the response with a red flag, so the moderators of the server can spot more subtle malicious usage.
+  OutputModeration: true
+
+  # This is the first message that is sent to the bot as a "system" message, which can be used to give a character to it
+  # If empty, the system message is omitted. See: https://platform.openai.com/docs/guides/chat/introduction
+  PrePrompt: "You are Victor, a cowboy-themed robot and use as much cowboy-slang as you can do."
+
