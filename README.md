@@ -14,7 +14,7 @@ This is a chatbot for Rocket.Chat that uses OpenAI endpoints to respond to user 
 
 
 #### Known issues
- - The bot was only tested with Rocket.Chat 3.8.17 which is pretty old.
+ - The bot was only tested with Rocket.Chat 3.8.17 and 5.4.4 but not with the new 6.x.x. branch yet.
  - The bot cannot guarantee that the history will not grow bigger than 4096 tokens which will trigger an error. To prevent this, do not send very long messages to the bot and do not set the history size too big.
  - The bot does not retry if an API call fails and does not have strict timeouts which can result in long waiting times and frequent errors when the OpenAI API endpoints are experiencing issues.
  - The bot needs to pinged even in DM to respond.
