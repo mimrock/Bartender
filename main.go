@@ -34,6 +34,8 @@ func main() {
 		log.Fatal("Cannot create new rocketchat connection:", err.Error())
 	}
 
+	log.WithField("rock", rock).Debug("Connection to rocketchat established.")
+
 	err = rock.UserTemporaryStatus(rocket.STATUS_ONLINE)
 	if err != nil {
 		log.WithError(err).Error("Cannot set temporary status to online.")
