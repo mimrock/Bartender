@@ -18,17 +18,26 @@ type Config struct {
 		Port      uint16 `yaml:"Port"`
 	} `yaml:"RocketChat"`
 	OpenAI struct {
-		HostName           string `yaml:"HostName"`
-		ApiToken           string `yaml:"ApiToken"`
-		CompletionEndpoint string `yaml:"CompletionEndpoint"`
-		ModerationEndpoint string `yaml:"ModerationEndpoint"`
-		Model              string `yaml:"Model"`
-		HistorySize        int    `yaml:"HistorySize"`
-		HistoryMaxLength   int    `yaml:"HistoryMaxLength"`
-		PrePrompt          string `yaml:"PrePrompt"`
-		InputModeration    bool   `yaml:"InputModeration"`
-		OutputModeration   bool   `yaml:"OutputModeration"`
+		HostName           string      `yaml:"HostName"`
+		ApiToken           string      `yaml:"ApiToken"`
+		CompletionEndpoint string      `yaml:"CompletionEndpoint"`
+		ModerationEndpoint string      `yaml:"ModerationEndpoint"`
+		Model              string      `yaml:"Model"`
+		HistorySize        int         `yaml:"HistorySize"`
+		HistoryMaxLength   int         `yaml:"HistoryMaxLength"`
+		PrePrompt          string      `yaml:"PrePrompt"`
+		InputModeration    bool        `yaml:"InputModeration"`
+		OutputModeration   bool        `yaml:"OutputModeration"`
+		ModelParams        ModelParams `yaml:"ModelParams,omitempty"`
 	} `yaml:"OpenAI"`
+}
+
+type ModelParams struct {
+	Temperature      *float64 `yaml:"Temperature,omitempty"`
+	TopP             *float64 `yaml:"TopP,omitempty"`
+	FrequencyPenalty *float64 `yaml:"FrequencyPenalty,omitempty"`
+	PresencePenalty  *float64 `yaml:"PresencePenalty,omitempty"`
+	MaxTokens        *int     `yaml:"MaxTokens,omitempty"`
 }
 
 func NewConfig(path string) (*Config, error) {

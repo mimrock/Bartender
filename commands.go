@@ -77,11 +77,8 @@ func OpenAIResponse(rocketmsg rocket.Message, oa *openai.OpenAI, hist *History) 
 	messages = append(messages, hist.AsOpenAIMessages(place)...)
 
 	messages = append(messages, msg)
-
-	cresp, err := oa.Completion(&openai.CompletionRequest{
-		Model:    oa.Model,
-		Messages: messages,
-	})
+	
+	cresp, err := oa.Completion(oa.NewCompletionRequest(messages, ""))
 	if err != nil {
 		if errors.Is(err, &openai.ErrorContextLengthExceeded{}) {
 			// If the reason for the error is context_length_exceeded, we clear history, so it does not happen on the next comment.
