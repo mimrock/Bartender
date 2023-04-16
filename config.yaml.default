@@ -32,3 +32,17 @@ OpenAI:
   # If empty, the system message is omitted. See: https://platform.openai.com/docs/guides/chat/introduction
   PrePrompt: "You are Victor, a cowboy-themed robot and use as much cowboy-slang as you can do."
 
+  # If enabled, the bot will send the user id of the user that sent the message to OpenAI.
+  # See: https://platform.openai.com/docs/api-reference/chat/create#chat/create-user
+  SendUserId: false
+
+  # Some parameters that can be used to tweak the output. All of them are optional. If not set, OpenAI will use their defaults.
+  # See more: https://platform.openai.com/docs/api-reference/chat/create
+  ModelParams:
+    # Temperature: 0.7
+    MaxTokens: 1024
+    # TopP: 1
+    # FrequencyPenalty: 0
+    # PresencePenalty: 0
+
+

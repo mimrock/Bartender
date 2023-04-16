@@ -41,6 +41,8 @@ type OpenAI struct {
 	Model              string
 	InputModeration    bool
 	OutputModeration   bool
+	SendUserId         bool
+	ModelParams        config.ModelParams
 }
 
 type HTTPError struct {
@@ -60,6 +62,9 @@ func NewFromConfig(config *config.Config) *OpenAI {
 		CompletionEndpoint: config.OpenAI.CompletionEndpoint,
 		InputModeration:    config.OpenAI.InputModeration,
 		OutputModeration:   config.OpenAI.OutputModeration,
+		SendUserId:         config.OpenAI.SendUserId,
+
+		ModelParams: config.OpenAI.ModelParams,
 	}
 	return &oa
 }
@@ -151,6 +156,24 @@ func (o *OpenAI) request(url string, request interface{}, oaResponse interface{}
 	}
 
 	return nil
+}
+
+func (o *OpenAI) NewCompletionRequest(messages []Message, user string) *CompletionRequest {
+	r := &CompletionRequest{
+		Model:            o.Model,
+		Messages:         messages,
+		Temperature:      o.ModelParams.Temperature,
+		TopP:             o.ModelParams.TopP,
+		MaxTokens:        o.ModelParams.MaxTokens,
+		PresencePenalty:  o.ModelParams.PresencePenalty,
+		FrequencyPenalty: o.ModelParams.FrequencyPenalty,
+	}
+
+	if len(user) > 0 {
+		r.User = &user
+	}
+	
+	return r
 }
 
 func parseError(resp *http.Response, oaResponse interface{}) error {
