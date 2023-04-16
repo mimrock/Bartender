@@ -13,8 +13,14 @@ type CompletionResponse struct {
 }
 
 type CompletionRequest struct {
-	Model    string    `json:"model"`
-	Messages []Message `json:"messages"`
+	Model            string    `json:"model"`
+	Messages         []Message `json:"messages"`
+	Temperature      *float64  `json:"temperature,omitempty"`
+	MaxTokens        *int      `json:"max_tokens,omitempty"`
+	TopP             *float64  `json:"top_p,omitempty"`
+	PresencePenalty  *float64  `json:"presence_penalty,omitempty"`
+	FrequencyPenalty *float64  `json:"frequency_penalty,omitempty"`
+	User             *string   `json:"user,omitempty"`
 }
 
 type Message struct {
