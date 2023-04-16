@@ -20,6 +20,11 @@ OpenAI:
   # risk of 400 - context_length_exceeded errors.
   HistorySize: 6
 
+  # The amount of time while the bot keep the individual messages in history. After this time, the messages are removed.
+  # If MessageRetention is not set, the messages are kept forever. However, if it's set to 0 they will be removed immediately.
+  # s seconds, m minutes, h hours.
+  MessageRetention: 1h30m
+
   # If enabled, the bot will send all input to the moderations endpoint first. If it gets flagged
   # the content will not be sent to the completions endpoint and will not risk account suspension.
   InputModeration: true
