@@ -28,6 +28,7 @@ type Config struct {
 		PrePrompt          string      `yaml:"PrePrompt"`
 		InputModeration    bool        `yaml:"InputModeration"`
 		OutputModeration   bool        `yaml:"OutputModeration"`
+		SendUserId         bool        `yaml:"SendUserId"`
 		ModelParams        ModelParams `yaml:"ModelParams,omitempty"`
 	} `yaml:"OpenAI"`
 }

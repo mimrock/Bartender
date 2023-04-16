@@ -41,6 +41,7 @@ type OpenAI struct {
 	Model              string
 	InputModeration    bool
 	OutputModeration   bool
+	SendUserId         bool
 	ModelParams        config.ModelParams
 }
 
@@ -61,7 +62,9 @@ func NewFromConfig(config *config.Config) *OpenAI {
 		CompletionEndpoint: config.OpenAI.CompletionEndpoint,
 		InputModeration:    config.OpenAI.InputModeration,
 		OutputModeration:   config.OpenAI.OutputModeration,
-		ModelParams:        config.OpenAI.ModelParams,
+		SendUserId:         config.OpenAI.SendUserId,
+
+		ModelParams: config.OpenAI.ModelParams,
 	}
 	return &oa
 }
