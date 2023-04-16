@@ -17,18 +17,18 @@ func main() {
 
 	configFile := os.Getenv("BARTENDER_CONFIG")
 	if len(configFile) == 0 {
-		configFile = "config.yaml"
+		configFile = "config_kiloparsec.yaml"
 	}
 	log.WithField("configFile", configFile).Info("Starting up.")
 
-	config, err := config.NewConfig(configFile)
+	cfg, err := config.NewConfig(configFile)
 	if err != nil {
 		log.Fatal("Cannot load config:", err.Error())
 	}
 
-	setLogLevel(config.LogLevel)
+	setLogLevel(cfg.LogLevel)
 
-	rock, err := rocket.NewConnectionFromConfig(config)
+	rock, err := rocket.NewConnectionFromConfig(cfg)
 
 	if err != nil {
 		log.Fatal("Cannot create new rocketchat connection:", err.Error())
@@ -42,11 +42,9 @@ func main() {
 	}
 	//rock.UserDefaultStatus(rocket.STATUS_ONLINE)
 
-	oa := openai.NewFromConfig(config)
+	oa := openai.NewFromConfig(cfg)
 
-	hist := NewHistory()
-	hist.Size = config.OpenAI.HistorySize
-	hist.MaxLength = config.OpenAI.HistoryMaxLength
+	hist := NewHistoryFromConfig(cfg)
 
 	for {
 		// Wait for a new message to come in

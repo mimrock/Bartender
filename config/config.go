@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gopkg.in/yaml.v2"
 	"os"
+	"time"
 )
 
 type Config struct {
@@ -18,18 +19,19 @@ type Config struct {
 		Port      uint16 `yaml:"Port"`
 	} `yaml:"RocketChat"`
 	OpenAI struct {
-		HostName           string      `yaml:"HostName"`
-		ApiToken           string      `yaml:"ApiToken"`
-		CompletionEndpoint string      `yaml:"CompletionEndpoint"`
-		ModerationEndpoint string      `yaml:"ModerationEndpoint"`
-		Model              string      `yaml:"Model"`
-		HistorySize        int         `yaml:"HistorySize"`
-		HistoryMaxLength   int         `yaml:"HistoryMaxLength"`
-		PrePrompt          string      `yaml:"PrePrompt"`
-		InputModeration    bool        `yaml:"InputModeration"`
-		OutputModeration   bool        `yaml:"OutputModeration"`
-		SendUserId         bool        `yaml:"SendUserId"`
-		ModelParams        ModelParams `yaml:"ModelParams,omitempty"`
+		HostName           string         `yaml:"HostName"`
+		ApiToken           string         `yaml:"ApiToken"`
+		CompletionEndpoint string         `yaml:"CompletionEndpoint"`
+		ModerationEndpoint string         `yaml:"ModerationEndpoint"`
+		Model              string         `yaml:"Model"`
+		HistorySize        int            `yaml:"HistorySize"`
+		HistoryMaxLength   int            `yaml:"HistoryMaxLength"`
+		MessageRetention   *time.Duration `yaml:"MessageRetention,omitempty"`
+		PrePrompt          string         `yaml:"PrePrompt"`
+		InputModeration    bool           `yaml:"InputModeration"`
+		OutputModeration   bool           `yaml:"OutputModeration"`
+		SendUserId         bool           `yaml:"SendUserId"`
+		ModelParams        ModelParams    `yaml:"ModelParams,omitempty"`
 	} `yaml:"OpenAI"`
 }
 
