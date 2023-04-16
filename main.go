@@ -17,7 +17,7 @@ func main() {
 
 	configFile := os.Getenv("BARTENDER_CONFIG")
 	if len(configFile) == 0 {
-		configFile = "config_kiloparsec.yaml"
+		configFile = "config.yaml"
 	}
 	log.WithField("configFile", configFile).Info("Bartender v0.2 starting up.")
 
