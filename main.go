@@ -19,7 +19,7 @@ func main() {
 	if len(configFile) == 0 {
 		configFile = "config.yaml"
 	}
-	log.WithField("configFile", configFile).Info("Bartender v0.2 starting up.")
+	log.WithField("configFile", configFile).Info("Bartender v0.3 starting up.")
 
 	cfg, err := config.NewConfig(configFile)
 	if err != nil {
