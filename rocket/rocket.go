@@ -141,6 +141,7 @@ func (rock *RocketCon) run() {
 	ws, _, err := websocket.DefaultDialer.Dial(wsURL, nil)
 	if err != nil {
 		log.WithError(err).WithField("wsURL", wsURL).Error("Cannot initiate websocket")
+		close(rock.quit)
 		return
 	}
 	defer ws.Close()
