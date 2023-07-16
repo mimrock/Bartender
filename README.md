@@ -17,7 +17,6 @@ This is a chatbot for Rocket.Chat that uses OpenAI endpoints to respond to user 
  - The bot is always shown as offline on RocketChat 5.x and 6.x even when it successfully connects (Rocket.Chat bug?)
  - The bot cannot guarantee that the history will not grow bigger than 4k/8k/32k tokens which will trigger an error. To prevent this, do not send very long messages to the bot and do not set the history size too big.
  - The bot does not retry if an API call fails which can result in more frequent errors when the OpenAI API endpoints are experiencing issues.
- - The bot needs to pinged even in DM to respond.
 
 #### Thanks
 

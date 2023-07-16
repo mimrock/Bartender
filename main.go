@@ -57,7 +57,7 @@ func main() {
 
 		// If begins with '@Username ' or is in private chat
 		// @todo robot must be pinged in a private room
-		if msg.IsAddressedToMe || msg.RoomName == "" {
+		if msg.AmIPinged || msg.IsDirect {
 			log.WithField("message", msg).Debug("Incoming message for the bot.")
 			err = OpenAIResponse(msg, oa, hist)
 			if err != nil {

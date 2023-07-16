@@ -7,25 +7,25 @@ import (
 )
 
 type Message struct {
-	IsNew           bool                `yaml:"IsNew"`
-	IsAddressedToMe bool                `yaml:"IsAddressedToMe"`
-	IsDirect        bool                `yaml:"IsDirect"`
-	IsMention       bool                `yaml:"IsMention"`
-	IsEdited        bool                `yaml:"IsEdited"`
-	IsMe            bool                `yaml:"IsMe"`
-	Id              string              `yaml:"Id"`
-	UserName        string              `yaml:"UserName"`
-	UserId          string              `yaml:"UserId"`
-	RoomName        string              `yaml:"RoomName"`
-	RoomId          string              `yaml:"RoomId"`
-	Text            string              `yaml:"Text"`
-	Timestamp       time.Time           `yaml:"Timestamp"`
-	UpdatedAt       time.Time           `yaml:"UpdatedAt"`
-	Reactions       map[string][]string `yaml:"Reactions"`
-	Attachments     []attachment        `yaml:"Attachments"`
-	QuotedMsgs      []string            `yaml:"QuotedMsgs"`
-	obj             map[string]interface{}
-	rocketCon       *RocketCon
+	IsNew       bool                `yaml:"IsNew"`
+	AmIPinged   bool                `yaml:"AmIPinged"`
+	IsDirect    bool                `yaml:"IsDirect"`
+	IsMention   bool                `yaml:"IsMention"`
+	IsEdited    bool                `yaml:"IsEdited"`
+	IsMe        bool                `yaml:"IsMe"`
+	Id          string              `yaml:"Id"`
+	UserName    string              `yaml:"UserName"`
+	UserId      string              `yaml:"UserId"`
+	RoomName    string              `yaml:"RoomName"`
+	RoomId      string              `yaml:"RoomId"`
+	Text        string              `yaml:"Text"`
+	Timestamp   time.Time           `yaml:"Timestamp"`
+	UpdatedAt   time.Time           `yaml:"UpdatedAt"`
+	Reactions   map[string][]string `yaml:"Reactions"`
+	Attachments []attachment        `yaml:"Attachments"`
+	QuotedMsgs  []string            `yaml:"QuotedMsgs"`
+	obj         map[string]interface{}
+	rocketCon   *RocketCon
 }
 
 type attachment struct {
@@ -79,7 +79,7 @@ func (rock *RocketCon) handleMessageObject(obj map[string]interface{}) Message {
 
 	if len(msg.Text) > len(rock.UserName)+2 {
 		if string(strings.ToLower(msg.Text)[:len(rock.UserName)+2]) == fmt.Sprintf("@%s ", strings.ToLower(rock.UserName)) {
-			msg.IsAddressedToMe = true
+			msg.AmIPinged = true
 		}
 	}
 
@@ -174,7 +174,7 @@ func (msg *Message) React(emoji string) error {
 
 func (msg *Message) GetNotAddressedText() string {
 	r := msg.Text
-	if len(msg.Text) > 2 && msg.IsAddressedToMe {
+	if len(msg.Text) > 2 && msg.AmIPinged {
 		r = string(strings.ToLower(msg.Text)[len(msg.rocketCon.UserName)+2:])
 	}
 	return r
