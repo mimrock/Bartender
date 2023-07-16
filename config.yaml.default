@@ -31,7 +31,7 @@ OpenAI:
 
   # Output is sent to the moderations endpoint. If it gets flagged, the bot will indicate it in
   # the response with a red flag, so the moderators of the server can spot more subtle malicious usage.
-  OutputModeration: true
+  OutputModeration: false
 
   # This is the first message that is sent to the bot as a "system" message, which can be used to give a character to it
   # If empty, the system message is omitted. See: https://platform.openai.com/docs/guides/chat/introduction
