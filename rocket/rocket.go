@@ -142,7 +142,6 @@ func (rock *RocketCon) run() {
 	if err != nil {
 		log.WithError(err).WithField("wsURL", wsURL).Error("Cannot initiate websocket")
 		close(rock.quit)
-		return
 	}
 	defer ws.Close()
 
@@ -266,6 +265,7 @@ func (rock *RocketCon) run() {
 		}
 	}
 	close(rock.quit)
+	time.Sleep(100 * time.Millisecond) // Ugly hack to make sure rock.quit is closed before we return
 }
 
 func (rock *RocketCon) generateId() string {

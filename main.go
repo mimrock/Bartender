@@ -52,6 +52,7 @@ func main() {
 
 		// If error, quit because that means the connection probably quit
 		if err != nil {
+			log.WithError(err).Error("An error occured, stopping.")
 			break
 		}
 
