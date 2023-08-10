@@ -400,7 +400,7 @@ func (rock *RocketCon) runMethod(i map[string]interface{}) (map[string]interface
 			//errNo := reply["error"].(map[string]interface{})["error"].(string)
 			errNo := reply["error"].(map[string]interface{})["error"].(float64)
 			errType := reply["error"].(map[string]interface{})["errorType"].(string)
-			return reply, errors.New(fmt.Sprintf("Login: %f %s", errNo, errType))
+			return reply, fmt.Errorf("Rocket.Chat replied with an error: %f %s", errNo, errType)
 		} else {
 			return reply, errors.New("Unknown error")
 		}
