@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/mimrock/rocketchat_openai_bot/config"
@@ -30,6 +31,7 @@ type RocketCon struct {
 	send          chan interface{}
 	receive       chan interface{}
 	results       map[string]chan map[string]interface{}
+	resultsMutex  sync.RWMutex
 	resultsAppend chan struct {
 		string  string
 		channel chan map[string]interface{}
@@ -168,9 +170,13 @@ func (rock *RocketCon) run() {
 		for {
 			select {
 			case addition := <-rock.resultsAppend:
+				rock.resultsMutex.Lock()
 				rock.results[addition.string] = addition.channel
+				rock.resultsMutex.Unlock()
 			case remove := <-rock.resultsDel:
+				rock.resultsMutex.Lock()
 				delete(rock.results, remove)
+				rock.resultsMutex.Unlock()
 			}
 		}
 	}()
@@ -210,8 +216,13 @@ func (rock *RocketCon) run() {
 			case "connected":
 				rock.session = pack["session"].(string)
 			case "result":
+				rock.resultsMutex.RLock()
 				if channel, ok := rock.results[pack["id"].(string)]; ok {
+					// We want to unlock the resultsMutex before the following blocking operation.
+					rock.resultsMutex.RUnlock()
 					channel <- pack
+				} else {
+					rock.resultsMutex.RUnlock()
 				}
 				rock.resultsDel <- pack["id"].(string)
 			case "added":

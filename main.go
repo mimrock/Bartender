@@ -34,7 +34,13 @@ func main() {
 		log.Fatal("Cannot create new rocketchat connection:", err.Error())
 	}
 
-	log.WithField("rock", rock).Debug("Connection to rocketchat established.")
+	log.WithField("userId", rock.UserId).
+		WithField("port", rock.HostPort).
+		WithField("hostName", rock.HostName).
+		WithField("displayName", rock.DisplayName).
+		WithField("hostSSL", rock.HostSSL).
+		WithField("userName", rock.UserName).
+		Debug("Connection to rocketchat established.")
 
 	err = rock.UserTemporaryStatus(rocket.STATUS_ONLINE)
 	if err != nil {
