@@ -15,22 +15,30 @@ type ModerationResponse struct {
 
 type Result struct {
 	Categories struct {
-		Hate            bool `json:"hate"`
-		HateThreatening bool `json:"hate/threatening"`
-		SelfHarm        bool `json:"self-harm"`
-		Sexual          bool `json:"sexual"`
-		SexualMinors    bool `json:"sexual/minors"`
-		Violence        bool `json:"violence"`
-		ViolenceGraphic bool `json:"violence/graphic"`
+		Hate                  bool `json:"hate"`
+		HateThreatening       bool `json:"hate/threatening"`
+		Harassment            bool `json:"harassment"`
+		HarassmentThreatening bool `json:"harassment/threatening"`
+		SelfHarm              bool `json:"self-harm"`
+		SelfHarmIntent        bool `json:"self-harm/intent"`
+		SelfHarmInstructions  bool `json:"self-harm/intstructions"`
+		Sexual                bool `json:"sexual"`
+		SexualMinors          bool `json:"sexual/minors"`
+		Violence              bool `json:"violence"`
+		ViolenceGraphic       bool `json:"violence/graphic"`
 	} `json:"categories"`
 	CategoryScores struct {
-		Hate            float64 `json:"hate"`
-		HateThreatening float64 `json:"hate/threatening"`
-		SelfHarm        float64 `json:"self-harm"`
-		Sexual          float64 `json:"sexual"`
-		SexualMinors    float64 `json:"sexual/minors"`
-		Violence        float64 `json:"violence"`
-		ViolenceGraphic float64 `json:"violence/graphic"`
+		Hate                  float64 `json:"hate"`
+		HateThreatening       float64 `json:"hate/threatening"`
+		Harassment            float64 `json:"harassment"`
+		HarassmentThreatening float64 `json:"harassment/threatening"`
+		SelfHarm              float64 `json:"self-harm"`
+		SelfHarmIntent        float64 `json:"self-harm/intent"`
+		SelfHarmInstructions  float64 `json:"self-harm/intstructions"`
+		Sexual                float64 `json:"sexual"`
+		SexualMinors          float64 `json:"sexual/minors"`
+		Violence              float64 `json:"violence"`
+		ViolenceGraphic       float64 `json:"violence/graphic"`
 	} `json:"category_scores"`
 	Flagged bool `json:"flagged"`
 }
@@ -54,8 +62,20 @@ func (mr *ModerationResponse) FlaggedReason() string {
 			if res.Categories.HateThreatening {
 				reasons = append(reasons, "Hate/Threatening")
 			}
+			if res.Categories.Harassment {
+				reasons = append(reasons, "Harassment")
+			}
+			if res.Categories.HarassmentThreatening {
+				reasons = append(reasons, "Harassment/Threatening")
+			}
 			if res.Categories.SelfHarm {
 				reasons = append(reasons, "SelfHarm")
+			}
+			if res.Categories.SelfHarmIntent {
+				reasons = append(reasons, "SelfHarm/Intent")
+			}
+			if res.Categories.SelfHarmInstructions {
+				reasons = append(reasons, "SelfHarm/Instructions")
 			}
 			if res.Categories.Sexual {
 				reasons = append(reasons, "Sexual")
@@ -73,5 +93,10 @@ func (mr *ModerationResponse) FlaggedReason() string {
 	}
 
 	// @todo filter duplicates
-	return strings.Join(reasons, ",")
+	r := strings.Join(reasons, ",")
+	if len(r) == 0 {
+		// It can occur for example if OpenAI has added new categories that are not yet supported
+		r = "Other"
+	}
+	return r
 }
